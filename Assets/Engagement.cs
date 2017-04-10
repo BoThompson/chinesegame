@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
-public class Engagement : MonoBehaviour {
+public class Engagement : Waypoint {
 
     private bool activated;
 
     [SerializeField]
     public List<Spawner> spawners;
-    public List<Engagement> travelPaths;
+    [SerializeField]
+    public List<Waypoint> travelPaths;
     
     Rect region;
    // public ArrayList<GameObject>
@@ -50,6 +51,8 @@ public class Engagement : MonoBehaviour {
 
         foreach (Spawner s in spawners)
         {
+            if (!s)
+                continue;
             Handles.color = Color.yellow;
             Handles.ArrowCap(0,
                   s.transform.position,
@@ -57,8 +60,10 @@ public class Engagement : MonoBehaviour {
                   (transform.position - s.transform.position).magnitude * .75f);
         }       
 
-        foreach (Engagement e in travelPaths)
+        foreach (Waypoint e in travelPaths)
         {
+            if (!e)
+                continue;
             Handles.color = Color.green;
             Handles.ArrowCap(0,
                   transform.position,
